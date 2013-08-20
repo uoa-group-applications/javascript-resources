@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 
 	<name>common-jsresource</name>
-	<version>1.7</version>
+	<version>1.8-SNAPSHOT</version>
 	<description>
 		A web fragment that provides a bus mechanism for application parts to notify items
 		that need to be in the Window namespace.
@@ -22,7 +22,7 @@
 		<url>https://github.com/uoa-group-applications/common-jsresource</url>
 		<connection>scm:git:https://github.com/uoa-group-applications/common-jsresource.git</connection>
 		<developerConnection>scm:git:git@github.com:uoa-group-applications/common-jsresource.git</developerConnection>
-	  <tag>common-jsresource-1.7</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<dependencies>
