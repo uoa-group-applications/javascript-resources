@@ -33,7 +33,7 @@ public class ResourceServlet extends HttpServlet {
     /**
      * Debug mode flag.
      */
-    private static final String IN_DEV_MODE = "scanner.devmode";
+    private static final String IN_DEV_MODE = "webapp.devmode";
     /**
      * Application resources
      */
