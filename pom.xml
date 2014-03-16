@@ -40,9 +40,22 @@
 		</dependency>
 
 		<dependency>
+			<groupId>nz.ac.auckland.lmz</groupId>
+			<artifactId>lmz-version</artifactId>
+			<version>[1.1,)</version>
+		</dependency>
+
+		<dependency>
 			<groupId>nz.ac.auckland.composite</groupId>
 			<artifactId>composite-servlet</artifactId>
-			<version>[1,)</version>
+			<version>[1.2,)</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nz.ac.auckland.composite</groupId>
+			<artifactId>composite-jetty</artifactId>
+			<version>[2,3)</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -51,12 +64,14 @@
 			<version>[4,)</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>nz.ac.auckland.composite</groupId>
 			<artifactId>composite-unittest</artifactId>
 			<version>[2,)</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>nz.ac.auckland.common</groupId>
 			<artifactId>common-jackson</artifactId>

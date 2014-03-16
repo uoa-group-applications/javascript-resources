@@ -19,4 +19,11 @@
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
 
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://auckland.ac.nz/tld/lmz_jsresources</taglib-uri>
+			<taglib-location>/WEB-INF/lmz_jsresources.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
 </web-fragment>
