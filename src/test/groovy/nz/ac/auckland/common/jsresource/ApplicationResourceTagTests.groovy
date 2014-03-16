@@ -1,5 +1,6 @@
 package nz.ac.auckland.common.jsresource
 
+import nz.ac.auckland.lmz.common.AppVersion
 import org.junit.Test
 
 import javax.servlet.ServletContext
@@ -162,15 +163,23 @@ class ApplicationResourceTagTests {
 	public void ensureCorrectWritingOfJsp() {
 		StringWriter writer = new StringWriter()
 
-		Map attrs = [:]
-		attrs[ResourceServlet.class.getName()] = '1.11'
-
 		ServletContext ctx = [
-			 getContextPath: { return "/flarp" },
-		   getAttribute: { String name -> return attrs[name] }
+			 getContextPath: { return "/flarp" }
 		] as ServletContext
 
-		ApplicationResourceTag tag = new ApplicationResourceTag()
+		ApplicationResourceTag tag = new ApplicationResourceTag() {
+			@Override
+			protected void injectDependencies(ServletContext servletContext) {
+				this.version = new AppVersion() {
+
+					@Override
+					String getVersion() {
+						return "1.11"
+					}
+				}
+			}
+		}
+
 		tag.setJspContext([getOut: {return new MyWriter(writer)}, getServletContext: { return ctx }] as PageContext)
 
 		tag.doTag()

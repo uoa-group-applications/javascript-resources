@@ -10,14 +10,18 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
-import java.io.Writer;
 
 /**
  * @author: Richard Vowles - https://plus.google.com/+RichardVowles
  */
 public class ApplicationResourceTag extends SimpleTagSupport {
 	@Inject
-	AppVersion version;
+	protected AppVersion version;
+
+	/* allows us to override it in a test */
+	protected void injectDependencies(ServletContext servletContext) {
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, servletContext);
+	}
 
 	@Override
 	public void doTag() throws JspException, IOException {
@@ -26,7 +30,8 @@ public class ApplicationResourceTag extends SimpleTagSupport {
 		JspWriter out = pageContext.getOut();
 
 		ServletContext servletContext = pageContext.getServletContext();
-		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, servletContext);
+
+		injectDependencies(servletContext);
 
 		String contextPath = servletContext.getContextPath();
 
