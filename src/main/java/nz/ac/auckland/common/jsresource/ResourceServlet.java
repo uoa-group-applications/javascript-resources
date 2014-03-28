@@ -1,6 +1,6 @@
 package nz.ac.auckland.common.jsresource;
 
-import nz.ac.auckland.lmz.common.AppVersion;
+import nz.ac.auckland.lmz.flags.Flags;
 import nz.ac.auckland.util.JacksonHelperApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -29,11 +29,6 @@ public class ResourceServlet extends HttpServlet {
 	@Inject
 	protected JacksonHelperApi jacksonHelperApi;
 
-
-	/**
-	 * Debug mode flag.
-	 */
-	private static final String IN_DEV_MODE = "webapp.devmode";
 	/**
 	 * Application resources
 	 */
@@ -188,7 +183,7 @@ public class ResourceServlet extends HttpServlet {
 	 * cache anything.
 	 */
 	protected boolean isInDevMode() {
-		return System.getProperty(IN_DEV_MODE) != null;
+        return Flags.DEVMODE.on();
 	}
 
 	/**
