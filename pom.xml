@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 
 	<name>javascript-resources</name>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.4</version>
 	<description>
 		A web fragment that provides a bus mechanism for application parts to notify items
 		that need to be in the Window namespace.
@@ -22,7 +22,7 @@
 		<url>https://github.com/uoa-group-applications/javascript-resource</url>
 		<connection>scm:git:https://github.com/uoa-group-applications/javascript-resource.git</connection>
 		<developerConnection>scm:git:git@github.com:uoa-group-applications/javascript-resource.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>javascript-resources-1.4</tag>
 	</scm>
 
 	<dependencies>
