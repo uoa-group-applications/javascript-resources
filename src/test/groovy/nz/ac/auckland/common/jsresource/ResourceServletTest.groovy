@@ -144,7 +144,7 @@ class ResourceServletTest {
             assert false;
         }
         catch (IllegalStateException isEx) {
-            assert headers['Content-Type'] == "text/javascript"
+            assert headers['Content-Type'] == "text/javascript; charset=utf-8"
             assert true;
         }
 
@@ -154,7 +154,7 @@ class ResourceServletTest {
         pathInfo = "unknown";
         resourceServlet.globalResults = null;
         resourceServlet.doGet(request, response);
-        assert headers['Content-Type'] == "text/javascript"
+        assert headers['Content-Type'] == "text/javascript; charset=utf-8"
         assert !headers['Cache-Control']
         assert !headers['Pragma']
         assert writer.toString().indexOf("unable to render") > 0
@@ -164,7 +164,7 @@ class ResourceServletTest {
         pathInfo = "/global.js"
         resourceServlet.applicationResources = noResources;
         resourceServlet.doGet(request, response);
-        assert headers['Content-Type'] == "text/javascript"
+        assert headers['Content-Type'] == "text/javascript; charset=utf-8"
         assert headers['Cache-Control'].contains("public")
         assert !headers['Pragma']
         assert writer.toString().indexOf("!window.UOA") > 0
@@ -175,7 +175,7 @@ class ResourceServletTest {
         resourceServlet.globalResults = null;
         resourceServlet.applicationResources = nullResources;
         resourceServlet.doGet(request, response);
-        assert headers['Content-Type'] == "text/javascript"
+        assert headers['Content-Type'] == "text/javascript; charset=utf-8"
         assert headers['Cache-Control'].contains("public")
         assert !headers['Pragma']
         assert writer.toString().indexOf("!window.UOA") > 0
@@ -186,7 +186,7 @@ class ResourceServletTest {
         resourceServlet.globalResults = null;
         resourceServlet.applicationResources = sessionResources;
         resourceServlet.doGet(request, response);
-        assert headers['Content-Type'] == "text/javascript"
+        assert headers['Content-Type'] == "text/javascript; charset=utf-8"
         assert headers['Cache-Control'].contains("public")
         assert !headers['Pragma']
         assert writer.toString().indexOf("!window.UOA") > 0
@@ -198,7 +198,7 @@ class ResourceServletTest {
         resourceServlet.globalResults = null;
         resourceServlet.applicationResources = sessionResources;
         resourceServlet.doGet(request, response);
-        assert headers['Content-Type'] == "text/javascript"
+        assert headers['Content-Type'] == "text/javascript; charset=utf-8"
         assert headers['Cache-Control'].contains("no-cache")
         assert headers['Pragma'].contains("no-cache");
         assert writer.toString().indexOf("!window.UOA") > 0
@@ -210,7 +210,7 @@ class ResourceServletTest {
         resourceServlet.globalResults = null;
         resourceServlet.applicationResources = mixedResources;
         resourceServlet.doGet(request, response);
-        assert headers['Content-Type'] == "text/javascript"
+        assert headers['Content-Type'] == "text/javascript; charset=utf-8"
         assert headers['Cache-Control'].contains("public")
         assert !headers['Pragma']
         assert writer.toString().indexOf("!window.UOA") > 0
@@ -224,7 +224,7 @@ class ResourceServletTest {
         resourceServlet.globalResults = null;
         resourceServlet.applicationResources = mixedResources;
         resourceServlet.doGet(request, response);
-        assert headers['Content-Type'] == "text/javascript"
+        assert headers['Content-Type'] == "text/javascript; charset=utf-8"
         assert headers['Cache-Control'].contains("no-cache")
         assert writer.toString().indexOf("!window.UOA") > 0
         assert writer.toString().indexOf("session1") > 0

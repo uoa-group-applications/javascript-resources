@@ -124,7 +124,7 @@ public class ResourceServlet extends HttpServlet {
 	 * http://stackoverflow.com/questions/4480304/how-to-set-http-headers-for-cache-control
 	 */
 	protected void setResponseHeaders(HttpServletResponse response, ResourceScope scope) {
-		response.setHeader("Content-Type", "text/javascript");
+		response.setHeader("Content-Type", "text/javascript; charset=utf-8");
 
 		// cache for a month
 		if (scope.equals(ResourceScope.Global)) {
