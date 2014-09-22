@@ -1,5 +1,6 @@
 package nz.ac.auckland.common.jsresource;
 
+import nz.ac.auckland.common.config.ConfigKey;
 import nz.ac.auckland.lmz.flags.Flags;
 import nz.ac.auckland.util.JacksonHelperApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ import java.util.Map;
  * specific application resources.
  */
 public class ResourceServlet extends HttpServlet {
+
+	/**
+	 * The global namespace of javascript resources
+	 */
+	@ConfigKey("lmz.namespace")
+	protected String namespace = "UOA";
 
 	@Inject
 	protected JacksonHelperApi jacksonHelperApi;
@@ -160,7 +167,7 @@ public class ResourceServlet extends HttpServlet {
 	 * @param writer is the writer to write to
 	 */
 	protected void writeHeader(Writer writer) throws IOException {
-		writer.write("if (!window.UOA) { window.UOA = {}; }\n");
+		writer.write(String.format("if (!window.%s) { window.%s = {}; }\n", namespace, namespace));
 	}
 
 	/**
@@ -173,7 +180,7 @@ public class ResourceServlet extends HttpServlet {
 		if (resource != null && resource.getResourceMap() != null) {
 			for (Map.Entry<String, Object> item : resource.getResourceMap().entrySet()) {
 				assert jacksonHelperApi != null;
-				writer.write(String.format("UOA.%s = %s;\n", item.getKey(), jacksonHelperApi.jsonSerialize(item.getValue())));
+				writer.write(String.format("%s.%s = %s;\n", namespace, item.getKey(), jacksonHelperApi.jsonSerialize(item.getValue())));
 			}
 		}
 	}
@@ -183,11 +190,11 @@ public class ResourceServlet extends HttpServlet {
 	 * cache anything.
 	 */
 	protected boolean isInDevMode() {
-        return Flags.DEVMODE.on();
+		return Flags.DEVMODE.on();
 	}
 
 	/**
-	 * Return the resource scope we're tryin got render for the current path
+	 * Return the resource scope we're trying got render for the current path
 	 *
 	 * @param pathInfo is the path relative to the base of the servlet we're rendering from
 	 * @return a resource scope, returns Unknown when not able to determine what scope.
