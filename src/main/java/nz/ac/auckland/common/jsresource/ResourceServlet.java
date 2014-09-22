@@ -107,7 +107,7 @@ public class ResourceServlet extends HttpServlet {
 	protected void writeResourcesForScope(final Writer writer, final ResourceScope scope) throws IOException {
 
 		// find resources for this scope
-		List<ApplicationResource> scopeResources = new ArrayList<ApplicationResource>();
+		@SuppressWarnings("Convert2Diamond") List<ApplicationResource> scopeResources = new ArrayList<ApplicationResource>();
 
 		if (applicationResources != null) {
 			for (ApplicationResource applicationResource : applicationResources) {
