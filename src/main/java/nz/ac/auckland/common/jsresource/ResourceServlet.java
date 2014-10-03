@@ -1,6 +1,5 @@
 package nz.ac.auckland.common.jsresource;
 
-import nz.ac.auckland.common.config.ConfigKey;
 import nz.ac.auckland.lmz.flags.Flags;
 import nz.ac.auckland.util.JacksonHelperApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import java.util.Map;
 
 /**
  * Author: Marnix
- * <p/>
+ * <p>
  * This servlet is able to serve up application resources for either global or session
  * specific application resources.
  */
@@ -30,8 +29,10 @@ public class ResourceServlet extends HttpServlet {
 	/**
 	 * The global namespace of javascript resources
 	 */
-	@ConfigKey("lmz.namespace")
 	protected String namespace = "UOA";
+
+	@Inject
+	protected ResourceNamespace resourceNamespace;
 
 	@Inject
 	protected JacksonHelperApi jacksonHelperApi;
@@ -56,6 +57,7 @@ public class ResourceServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+		namespace = resourceNamespace.getNamespace();
 	}
 
 	/**
@@ -107,7 +109,7 @@ public class ResourceServlet extends HttpServlet {
 	protected void writeResourcesForScope(final Writer writer, final ResourceScope scope) throws IOException {
 
 		// find resources for this scope
-		@SuppressWarnings("Convert2Diamond") List<ApplicationResource> scopeResources = new ArrayList<ApplicationResource>();
+		List<ApplicationResource> scopeResources = new ArrayList<ApplicationResource>();
 
 		if (applicationResources != null) {
 			for (ApplicationResource applicationResource : applicationResources) {
@@ -127,7 +129,7 @@ public class ResourceServlet extends HttpServlet {
 
 	/**
 	 * Set response headers
-	 * <p/>
+	 * <p>
 	 * http://stackoverflow.com/questions/4480304/how-to-set-http-headers-for-cache-control
 	 */
 	protected void setResponseHeaders(HttpServletResponse response, ResourceScope scope) {
