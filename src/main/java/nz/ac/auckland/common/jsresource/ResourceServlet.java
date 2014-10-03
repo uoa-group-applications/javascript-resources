@@ -1,6 +1,5 @@
 package nz.ac.auckland.common.jsresource;
 
-import nz.ac.auckland.common.config.ConfigKey;
 import nz.ac.auckland.lmz.flags.Flags;
 import nz.ac.auckland.util.JacksonHelperApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +20,20 @@ import java.util.Map;
 
 /**
  * Author: Marnix
- * <p/>
+ * <p>
  * This servlet is able to serve up application resources for either global or session
  * specific application resources.
  */
 public class ResourceServlet extends HttpServlet {
 
+	private static final String NAMESPACE_DEFAULT = "UOA";
+
+	private static final String NAMESPACE_KEY = "lmz.namespace";
+
 	/**
 	 * The global namespace of javascript resources
 	 */
-	@ConfigKey("lmz.namespace")
-	protected String namespace = "UOA";
+	protected String namespace = NAMESPACE_DEFAULT;
 
 	@Inject
 	protected JacksonHelperApi jacksonHelperApi;
@@ -56,6 +58,7 @@ public class ResourceServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+		namespace = System.getProperty(NAMESPACE_KEY, NAMESPACE_DEFAULT);
 	}
 
 	/**
@@ -127,7 +130,7 @@ public class ResourceServlet extends HttpServlet {
 
 	/**
 	 * Set response headers
-	 * <p/>
+	 * <p>
 	 * http://stackoverflow.com/questions/4480304/how-to-set-http-headers-for-cache-control
 	 */
 	protected void setResponseHeaders(HttpServletResponse response, ResourceScope scope) {
