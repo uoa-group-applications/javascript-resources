@@ -27,9 +27,9 @@ import java.util.Map;
 public class ResourceServlet extends HttpServlet {
 
 	/**
-	 * The global namespace of javascript resources
+	 * The default global namespace of javascript resources
 	 */
-	protected String namespace = "UOA";
+	protected String namespace = ResourceNamespace.DEFAULT_RESOURCE_NAMESAPCE;
 
 	@Inject
 	protected ResourceNamespace resourceNamespace;
